@@ -15,7 +15,8 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
         snippets = CAMELCASE,
         tags = {"@tagTest"},
         features= {"src/test/resources/features"},
-        glue={"com.rcm.cucumber.step_definitions"})
+        //glue={"com.rcm.cucumber.step_definitions"},
+        extraGlue={"com.rcm.cucumber.step_definitions"})
 public class TestRunner {
 
     @BeforeClass
