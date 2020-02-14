@@ -15,7 +15,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
         snippets = CAMELCASE,
         tags = {"@tagTest"},
         features= {"src/test/resources/features"},
-        glue={"com.rcm.cucumber.step_definitions"})
+        extraGlue={"com.rcm.cucumber.step_definitions","com.rcm.cucumber.spring_boot_context_configuration"})
 public class TestRunner {
 
     @BeforeClass
@@ -27,4 +27,5 @@ public class TestRunner {
     public static void afterTest(){
         System.out.println("Finishing Test...");
     }
+
 }
