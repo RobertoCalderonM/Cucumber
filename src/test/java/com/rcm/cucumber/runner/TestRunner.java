@@ -10,7 +10,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(monochrome=false,
-        plugin = {"pretty", "summary"},
+        plugin = {"pretty", "summary","de.monochromata.cucumber.report.PrettyReports:target/cucumber"},
         strict = true,
         snippets = CAMELCASE,
         tags = {"@tagTest"},
