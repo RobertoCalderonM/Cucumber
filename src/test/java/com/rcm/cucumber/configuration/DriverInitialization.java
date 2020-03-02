@@ -20,15 +20,15 @@ public class DriverInitialization {
         String machineProperty=testConfigurationProperties.getTestMachine();
         switch (machineProperty){
             case "local":
-                return localBrowser();
+                return getLocalBrowser();
             case "remote":
-                return remoteBrowser();
+                return getRemoteBrowser();
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.browser",machineProperty));
         }
     }
 
-    private WebDriver remoteBrowser() throws IOException {
+    private WebDriver getRemoteBrowser() throws IOException {
         String browserProperty=testConfigurationProperties.getTestBrowser();
         DesiredCapabilities cap;
         switch (browserProperty){
@@ -43,7 +43,7 @@ public class DriverInitialization {
         return new RemoteWebDriver(new URL("http://localhost:4446/wd/hub"),cap);
     }
 
-    private WebDriver localBrowser() throws IOException {
+    private WebDriver getLocalBrowser() throws IOException {
         String browserProperty=testConfigurationProperties.getTestBrowser();
         switch (browserProperty){
             case "chrome":

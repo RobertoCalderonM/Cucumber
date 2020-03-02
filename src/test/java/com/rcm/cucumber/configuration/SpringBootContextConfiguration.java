@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(
         classes = CucumberApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class SpringBootContextConfiguration {
+public class
+SpringBootContextConfiguration {
 
 }

@@ -1,20 +1,22 @@
 package com.rcm.cucumber.step_definitions;
 
+import com.rcm.cucumber.configuration.SpringBootContextConfiguration;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import lombok.extern.slf4j.Slf4j;
 
-
-public class CommonSteps {
+@Slf4j
+public class CommonSteps extends SpringBootContextConfiguration {
 
     @Before
     public void beforeScenario(Scenario scenario){
-        System.out.println(String.format("Starting Scenario: %s...",scenario.getName()));
+        log.info(String.format("Starting Scenario: %s...",scenario.getName()));
     }
 
     @After
     public void afterScenario(Scenario scenario){
-        System.out.println(String.format("Finishing Scenario: %s...",scenario.getName()));
+        log.info(String.format("Finishing Scenario: %s...",scenario.getName()));
     }
 
 
