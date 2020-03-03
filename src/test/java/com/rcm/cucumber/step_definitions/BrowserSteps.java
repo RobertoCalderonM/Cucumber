@@ -1,14 +1,13 @@
 package com.rcm.cucumber.step_definitions;
 
 import com.rcm.cucumber.configuration.DriverInstance;
-import com.rcm.cucumber.configuration.SpringBootContextConfiguration;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Slf4j
-public class MainStep {
+public class BrowserSteps {
 
     @Autowired
     DriverInstance driverInstance;

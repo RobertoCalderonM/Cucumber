@@ -54,7 +54,6 @@
 			<version>4.0.21</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -89,6 +88,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -99,12 +104,6 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/test/java/com/rcm/cucumber/runner</directory>
-			</resource>
-		</resources>
-
 		<pluginManagement>
 				<plugins>
 					<plugin>
@@ -122,6 +121,18 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
 
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.22.2</version>
+						<configuration>
+							<forkCount>2</forkCount>
+							<reuseForks>false</reuseForks>
+							<includes>
+								<include>**/runner/*.class</include>
+							</includes>
+						</configuration>
+					</plugin>
 				</plugins>
 		</pluginManagement>
 	</build>

@@ -14,10 +14,10 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
         plugin = {"pretty", "summary","de.monochromata.cucumber.report.PrettyReports:target/cucumber"},
         strict = true,
         snippets = CAMELCASE,
-        tags = {"@tagTest"},
+        tags = {"@tagTest1"},
         features= {"src/test/resources/features"},
-        extraGlue={"com.rcm.cucumber.step_definitions","com.rcm.cucumber.spring_boot_context_configuration"})
-public class TestRunner {
+        extraGlue={"com.rcm.cucumber.step_definitions"})
+public class TestRunner1 {
 
     @BeforeClass
     public static void beforeTest(){
