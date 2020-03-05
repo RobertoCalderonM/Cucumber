@@ -5,10 +5,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URL;
+
+import static com.rcm.cucumber.step_definitions.CucumberCommonSteps.getScenario;
 
 @Component
 public class DriverInitialization {
@@ -16,19 +19,23 @@ public class DriverInitialization {
     @Autowired
     TestConfigurationProperties testConfigurationProperties;
 
-     WebDriver initializeBrowser() throws IOException {
+
+    @Lazy @Bean
+     private WebDriver initializeBrowser() throws IOException {
         String machineProperty=testConfigurationProperties.getTestMachine();
         switch (machineProperty){
             case "local":
                 return getLocalBrowser();
-            case "remote":
-                return getRemoteBrowser();
+            case "grid":
+                return getGridBrowser();
+            case "sauce_labs":
+                return getSauceLabsBrowser();
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.browser",machineProperty));
         }
     }
 
-    private WebDriver getRemoteBrowser() throws IOException {
+    private WebDriver getGridBrowser() throws IOException {
         String browserProperty=testConfigurationProperties.getTestBrowser();
         DesiredCapabilities cap;
         switch (browserProperty){
@@ -53,4 +60,23 @@ public class DriverInitialization {
                 throw new IOException(String.format("Property: %s do not exists for test.browser",browserProperty));
         }
     }
+
+    private WebDriver getSauceLabsBrowser() throws  IOException{
+        String browserProperty=testConfigurationProperties.getTestBrowser();
+        String sauceUserName = "Huayacayo";
+        String sauceAccessKey = "d6dec3cf-8b02-44ed-81c5-3745de594030";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("username", sauceUserName);
+        capabilities.setCapability("accessKey", sauceAccessKey);
+        switch (browserProperty){
+            case "safari":
+                capabilities.setCapability("browserName", "Safari");
+                capabilities.setCapability("platform", "macOS 10.13");
+                capabilities.setCapability("version", "11.1");
+                capabilities.setCapability("name", getScenario().getName());
+                return new RemoteWebDriver(new URL("https://ondemand.saucelabs.com:443/wd/hub"), capabilities);
+            default:
+                throw new IOException(String.format("Property: %s do not exists for test.browser",browserProperty));
+        }
+        }
 }

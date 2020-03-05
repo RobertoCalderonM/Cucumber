@@ -7,10 +7,12 @@ import io.cucumber.java.Before;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CommonSteps extends SpringBootContextConfiguration {
+public class CucumberCommonSteps extends SpringBootContextConfiguration {
+    private static Scenario actualScenario;
 
     @Before
     public void beforeScenario(Scenario scenario){
+        actualScenario=scenario;
         log.info(String.format("Starting Scenario: %s...",scenario.getName()));
     }
 
@@ -19,5 +21,8 @@ public class CommonSteps extends SpringBootContextConfiguration {
         log.info(String.format("Finishing Scenario: %s...",scenario.getName()));
     }
 
+    public static Scenario getScenario(){
+        return actualScenario;
+    }
 
 }
