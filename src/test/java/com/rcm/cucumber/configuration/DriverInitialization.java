@@ -1,6 +1,7 @@
 package com.rcm.cucumber.configuration;
 
 import com.rcm.cucumber.manager.TestDataManager;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -9,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.net.URL;
 
+@Slf4j
 @Component
 public class DriverInitialization {
 
@@ -36,10 +37,13 @@ public class DriverInitialization {
         String machineProperty=testConfigurationProperties.getTestMachine();
         switch (machineProperty){
             case "local":
+                log.info("Initializing local Browser...");
                 return getLocalBrowser();
             case "grid":
+                log.info("Initializing grid Browser...");
                 return getGridBrowser();
             case "sauce_labs":
+                log.info("Initializing Sauce Labs Browser...");
                 return getSauceLabsBrowser();
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.machine",machineProperty));
