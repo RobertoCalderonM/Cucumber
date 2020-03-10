@@ -1,6 +1,7 @@
 package com.rcm.cucumber.configuration;
 
 import com.rcm.cucumber.manager.TestDataManager;
+import io.cucumber.java.bs.A;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +21,9 @@ public class DriverInitialization {
 
     @Autowired
     TestConfigurationProperties testConfigurationProperties;
+
+    @Autowired
+    SauceLabsCredentialsProperties sauceLabsCredentialsProperties;
 
     @Autowired
     TestDataManager testDataManager;
@@ -51,7 +55,7 @@ public class DriverInitialization {
     }
 
     private WebDriver getGridBrowser() throws IOException {
-        String browserProperty=testConfigurationProperties.getBrowser();
+        String browserProperty=testConfigurationProperties.getBrowser().getName();
         DesiredCapabilities cap;
         switch (browserProperty){
             case "chrome":
@@ -66,7 +70,7 @@ public class DriverInitialization {
     }
 
     private WebDriver getLocalBrowser() throws IOException {
-        String browserProperty=testConfigurationProperties.getBrowser();
+        String browserProperty=testConfigurationProperties.getBrowser().getName();
         switch (browserProperty){
             case "chrome":
                 System.setProperty("webdriver.chrome.driver","src/test/resources/drivers/chromedriver.exe");
@@ -77,21 +81,14 @@ public class DriverInitialization {
     }
 
     private WebDriver getSauceLabsBrowser() throws  IOException{
-        String browserProperty=testConfigurationProperties.getBrowser();
-        String sauceUserName = "Huayacayo";
-        String sauceAccessKey = "d6dec3cf-8b02-44ed-81c5-3745de594030";
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("username", sauceUserName);
-        capabilities.setCapability("accessKey", sauceAccessKey);
-        switch (browserProperty){
-            case "safari":
-                capabilities.setCapability("browserName", "Safari");
-                capabilities.setCapability("platform", "macOS 10.13");
-                capabilities.setCapability("version", "11.1");
-                capabilities.setCapability("name",testDataManager.getScenario().getName());
-                return new RemoteWebDriver(new URL("https://ondemand.saucelabs.com:443/wd/hub"), capabilities);
-            default:
-                throw new IOException(String.format("Property: %s do not exists for test.browser for sauce_labs",browserProperty));
-        }
+        capabilities.setCapability("username", sauceLabsCredentialsProperties.getUsername());
+        capabilities.setCapability("accessKey", sauceLabsCredentialsProperties.getPassword());
+        capabilities.setCapability("browserName", testConfigurationProperties.getBrowser().getName());
+        capabilities.setCapability("os", testConfigurationProperties.getOs().getName());
+        capabilities.setCapability("os_version", testConfigurationProperties.getOs().getVersion());
+        capabilities.setCapability("browser_version", testConfigurationProperties.getBrowser().getVersion());
+        capabilities.setCapability("name",testDataManager.getScenario().getName());
+        return new RemoteWebDriver(new URL("https://ondemand.saucelabs.com:443/wd/hub"), capabilities);
         }
 }

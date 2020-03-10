@@ -12,7 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
         classes = CucumberApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext
-@TestPropertySource(locations = "classpath:test.properties")
+@TestPropertySource(locations = {"classpath:test.configuration.properties",
+        "classpath:sauce_labs.credentials.properties"})
 public class SpringBootContextConfiguration {
 
 }
