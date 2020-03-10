@@ -1,7 +1,6 @@
 package com.rcm.cucumber.configuration;
 
 import com.rcm.cucumber.manager.TestDataManager;
-import io.cucumber.java.bs.A;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -60,6 +59,9 @@ public class DriverInitialization {
         switch (browserProperty){
             case "chrome":
                 cap=DesiredCapabilities.chrome();
+                break;
+            case "firefox":
+                cap=DesiredCapabilities.firefox();
                 break;
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.browser for grid",browserProperty));
