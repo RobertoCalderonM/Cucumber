@@ -34,7 +34,7 @@ public class DriverInitialization {
 
     @Lazy @Bean
      private WebDriver initializeBrowser() throws IOException {
-        String machineProperty=testConfigurationProperties.getTestMachine();
+        String machineProperty=testConfigurationProperties.getMachine();
         switch (machineProperty){
             case "local":
                 log.info("Initializing local Browser...");
@@ -51,7 +51,7 @@ public class DriverInitialization {
     }
 
     private WebDriver getGridBrowser() throws IOException {
-        String browserProperty=testConfigurationProperties.getTestBrowser();
+        String browserProperty=testConfigurationProperties.getBrowser();
         DesiredCapabilities cap;
         switch (browserProperty){
             case "chrome":
@@ -66,7 +66,7 @@ public class DriverInitialization {
     }
 
     private WebDriver getLocalBrowser() throws IOException {
-        String browserProperty=testConfigurationProperties.getTestBrowser();
+        String browserProperty=testConfigurationProperties.getBrowser();
         switch (browserProperty){
             case "chrome":
                 System.setProperty("webdriver.chrome.driver","src/test/resources/drivers/chromedriver.exe");
@@ -77,7 +77,7 @@ public class DriverInitialization {
     }
 
     private WebDriver getSauceLabsBrowser() throws  IOException{
-        String browserProperty=testConfigurationProperties.getTestBrowser();
+        String browserProperty=testConfigurationProperties.getBrowser();
         String sauceUserName = "Huayacayo";
         String sauceAccessKey = "d6dec3cf-8b02-44ed-81c5-3745de594030";
         DesiredCapabilities capabilities = new DesiredCapabilities();

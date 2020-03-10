@@ -3,6 +3,7 @@ import com.rcm.cucumber.CucumberApplication;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
         classes = CucumberApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @DirtiesContext
+@TestPropertySource(locations = "classpath:test.properties")
 public class SpringBootContextConfiguration {
 
 }
