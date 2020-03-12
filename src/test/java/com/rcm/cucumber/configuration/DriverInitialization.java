@@ -4,6 +4,7 @@ import com.rcm.cucumber.manager.TestDataManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,9 @@ public class DriverInitialization {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver","src/test/resources/drivers/chromedriver.exe");
                 return new ChromeDriver();
+            case "firefox":
+                System.setProperty("webdriver.gecko.driver","src/test/resources/drivers/geckodriver.exe");
+                return new FirefoxDriver();
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.browser for local machine",browserProperty));
         }
