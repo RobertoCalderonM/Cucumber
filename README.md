@@ -1,4 +1,4 @@
-in test.configuration.properties:
+In test.configuration.properties:
 
 Machine (Options):
 local: Test will run in a local WebBrowser
