@@ -9,36 +9,34 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @Slf4j
 public class BrowserSteps {
 
     @Autowired
     WebDriver driver;
-
     @Autowired
     ExtendedFluentWait waiting;
-
     @Autowired
     GooglePage google;
-
     @Autowired
     AmazonPage amazon;
 
     @When("User navigates to {string}")
     public void userNavigatesTo(String url) {
-        driver.get(url);
         log.info("Navigating to: "+url);
+        driver.get(url);
     }
 
     @Then("I say {string} to Google!")
     public void sayToGoogle(String value){
-        google.getGoogleSearchBar().sendKeys(value);
+        waiting.untilElementToBeVisible(google.getGoogleSearchBar());
+        google.googleSearchBarSendKeys(value);
     }
 
     @Then("I say {string} to Amazon!")
     public void sayToAmazon(String value){
-        waiting.untilElementToBeVisible(amazon.getAmazonSearchBar()).sendKeys(value);
+        waiting.untilElementToBeVisible(amazon.getAmazonSearchBar());
+        amazon.amazonSearchBarSendKeys(value);
     }
 
     @Then("Browser is refreshed")
