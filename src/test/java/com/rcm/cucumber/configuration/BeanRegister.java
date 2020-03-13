@@ -2,15 +2,13 @@ package com.rcm.cucumber.configuration;
 
 import com.rcm.cucumber.utils.ExtendedFluentWait;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.time.Duration;
 
@@ -23,15 +21,16 @@ public class BeanRegister {
     @Autowired
     TestConfigurationProperties testConfigurationProperties;
 
-    @Bean @Lazy
+    @Lazy @Bean
     public ExtendedFluentWait registerWait(@Autowired WebDriver driver){
         return (ExtendedFluentWait) new ExtendedFluentWait(driver)
                 .pollingEvery(Duration.ofSeconds(5))
                 .withTimeout(Duration.ofSeconds(40))
-                .ignoring(StaleElementReferenceException.class);
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(NoSuchElementException.class);
     }
 
-    @Bean @Lazy
+    @Lazy @Bean
     private WebDriver initializeBrowser() throws IOException {
         String machineProperty=testConfigurationProperties.getMachine();
         switch (machineProperty){
@@ -48,6 +47,5 @@ public class BeanRegister {
                 throw new IOException(String.format("Property: %s do not exists for test.machine",machineProperty));
         }
     }
-
 
 }

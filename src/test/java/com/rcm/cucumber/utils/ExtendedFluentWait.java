@@ -30,4 +30,12 @@ public class ExtendedFluentWait extends FluentWait<WebDriver> {
         return this.until(ExpectedConditions.invisibilityOf(element));
     }
 
+    public Boolean untilTextIsPresentInElement(WebElement element,String text){
+        return this.until(ExpectedConditions.textToBePresentInElementValue(element,text));
+    }
+
+    public Boolean untilAttributeContains(WebElement element,String attribute,String value){
+        return this.until(ExpectedConditions.attributeContains(element,attribute,value));
+    }
+
 }

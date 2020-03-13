@@ -5,9 +5,10 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-@Component @Getter
+@Component @Lazy @Getter
 public class AmazonPage extends PageObject {
 
     public AmazonPage(WebDriver driver) {

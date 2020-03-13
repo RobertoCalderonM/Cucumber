@@ -28,7 +28,7 @@ public class DriverInitialization {
     @Autowired
     TestDataManager testDataManager;
 
-    @Autowired @Lazy
+    @Lazy @Autowired
     WebDriver driver;
 
     @PreDestroy
