@@ -13,11 +13,11 @@ public class MessageSteps {
     @Autowired
     TestDataManager testDataManager;
 
-    @When("User says {string} and sleeps")
-    public void userSays(String message) throws InterruptedException {
+    @When("User says {string} and sleeps {int} milliseconds")
+    public void userSays(String message, int milliseconds) throws InterruptedException {
         User user=testDataManager.getUser();
-        log.info(String.format("%s %s says: %s and sleeps 3000ms",user.getFirstName(),user.getLastName(),message));
-        Thread.sleep(3000);
+        log.info(String.format("%s %s says: %s and sleeps %s milliseconds",user.getFirstName(),user.getLastName(),message, milliseconds));
+        Thread.sleep(milliseconds);
     }
 
     @When("User profile:")
