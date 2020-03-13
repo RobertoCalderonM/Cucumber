@@ -1,8 +1,8 @@
 package com.rcm.cucumber.step_definitions;
 
-import com.rcm.cucumber.page.structure.PageObject;
 import com.rcm.cucumber.page.webpages.AmazonPage;
 import com.rcm.cucumber.page.webpages.GooglePage;
+import com.rcm.cucumber.utils.ExtendedFluentWait;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +15,9 @@ public class BrowserSteps {
 
     @Autowired
     WebDriver driver;
+
+    @Autowired
+    ExtendedFluentWait waiting;
 
     @Autowired
     GooglePage google;
@@ -35,7 +38,7 @@ public class BrowserSteps {
 
     @Then("I say {string} to Amazon!")
     public void sayToAmazon(String value){
-        amazon.getAmazonSearchBar().sendKeys(value);
+        waiting.untilElementToBeVisible(amazon.getAmazonSearchBar()).sendKeys(value);
     }
 
     @Then("Browser is refreshed")

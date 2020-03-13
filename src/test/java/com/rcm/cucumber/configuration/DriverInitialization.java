@@ -36,25 +36,7 @@ public class DriverInitialization {
         if (driver!=null) driver.quit();
     }
 
-    @Lazy @Bean
-     private WebDriver initializeBrowser() throws IOException {
-        String machineProperty=testConfigurationProperties.getMachine();
-        switch (machineProperty){
-            case "local":
-                log.info("Initializing local Browser...");
-                return getLocalBrowser();
-            case "grid":
-                log.info("Initializing grid Browser...");
-                return getGridBrowser();
-            case "sauce_labs":
-                log.info("Initializing Sauce Labs Browser...");
-                return getSauceLabsBrowser();
-            default:
-                throw new IOException(String.format("Property: %s do not exists for test.machine",machineProperty));
-        }
-    }
-
-    private WebDriver getGridBrowser() throws IOException {
+     WebDriver getGridBrowser() throws IOException {
         String browserProperty=testConfigurationProperties.getBrowser().getName();
         DesiredCapabilities cap;
         switch (browserProperty){
@@ -72,7 +54,7 @@ public class DriverInitialization {
         return new RemoteWebDriver(new URL("http://localhost:4446/wd/hub"),cap);
     }
 
-    private WebDriver getLocalBrowser() throws IOException {
+     WebDriver getLocalBrowser() throws IOException {
         String browserProperty=testConfigurationProperties.getBrowser().getName();
         switch (browserProperty){
             case "chrome":
@@ -86,7 +68,7 @@ public class DriverInitialization {
         }
     }
 
-    private WebDriver getSauceLabsBrowser() throws  IOException{
+     WebDriver getSauceLabsBrowser() throws  IOException{
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("username", sauceLabsCredentialsProperties.getUsername());
         capabilities.setCapability("accessKey", sauceLabsCredentialsProperties.getPassword());

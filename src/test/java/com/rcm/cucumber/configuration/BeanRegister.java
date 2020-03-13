@@ -1,0 +1,53 @@
+package com.rcm.cucumber.configuration;
+
+import com.rcm.cucumber.utils.ExtendedFluentWait;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.time.Duration;
+
+@Slf4j @Component
+public class BeanRegister {
+
+    @Autowired
+    DriverInitialization driverInitialization;
+
+    @Autowired
+    TestConfigurationProperties testConfigurationProperties;
+
+    @Bean @Lazy
+    public ExtendedFluentWait registerWait(@Autowired WebDriver driver){
+        return (ExtendedFluentWait) new ExtendedFluentWait(driver)
+                .pollingEvery(Duration.ofSeconds(5))
+                .withTimeout(Duration.ofSeconds(40))
+                .ignoring(StaleElementReferenceException.class);
+    }
+
+    @Bean @Lazy
+    private WebDriver initializeBrowser() throws IOException {
+        String machineProperty=testConfigurationProperties.getMachine();
+        switch (machineProperty){
+            case "local":
+                log.info("Initializing local Browser...");
+                return driverInitialization.getLocalBrowser();
+            case "grid":
+                log.info("Initializing grid Browser...");
+                return driverInitialization.getGridBrowser();
+            case "sauce_labs":
+                log.info("Initializing Sauce Labs Browser...");
+                return driverInitialization.getSauceLabsBrowser();
+            default:
+                throw new IOException(String.format("Property: %s do not exists for test.machine",machineProperty));
+        }
+    }
+
+
+}
