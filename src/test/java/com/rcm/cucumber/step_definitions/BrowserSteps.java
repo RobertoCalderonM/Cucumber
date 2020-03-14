@@ -6,6 +6,7 @@ import com.rcm.cucumber.utils.ExtendedFluentWait;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -41,6 +42,7 @@ public class BrowserSteps {
 
     @Then("Browser is refreshed")
     public void refreshBrowser(){
+        log.info("Refreshing Browser...");
         driver.navigate().refresh();
     }
 

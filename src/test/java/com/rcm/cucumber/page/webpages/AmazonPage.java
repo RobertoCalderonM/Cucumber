@@ -23,5 +23,10 @@ public class AmazonPage extends PageObject {
         log.info("Sending keys to search bar: "+value);
         amazonSearchBar.sendKeys(value);
     }
+    public String amazonSearchBarGetText(){
+        String value=amazonSearchBar.getText();
+        log.info("Text retrieved from search bar: "+value);
+        return value;
+    }
 
 }
