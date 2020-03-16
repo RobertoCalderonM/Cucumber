@@ -6,6 +6,7 @@ import io.cucumber.java.en.But;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.SoftAssertions;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class MessageSteps {
     }
 
     @When("User profile:")
-    public void userProfile(Map<String,String> details) {
+    public void userProfile(@NotNull Map<String,String> details) {
         User user=new User();
         user.setFirstName(details.get("First Name"));
         user.setLastName(details.get("Last Name"));

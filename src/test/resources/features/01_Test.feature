@@ -6,6 +6,10 @@ Feature: Test 01 Feature
     | First Name | Bob          |
     | Last Name  | Sponge       |
 
+    Then A Client is found with id 1
+    Then A Client is found with id 2
+    Then A Product is found with id 1
+    Then A Product is found with name "Chocolate"
     When User navigates to "http://www.amazon.com"
     Then I say "Hi!" to Amazon!
     Then Browser is refreshed
