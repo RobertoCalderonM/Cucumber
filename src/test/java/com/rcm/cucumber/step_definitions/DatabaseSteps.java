@@ -17,20 +17,20 @@ public class DatabaseSteps {
     @Autowired
     ProductService productService;
 
-    @Then("A Client is found with id {long}")
-    public void clientWithIdSays(Long id){
+    @Then("A Client is found with id {long} in db")
+    public void clientWithIdSaysDb(Long id){
     Client client=clientService.getClientById(id);
     log.info(String.format("%s %s says hi!",client.getFirstName(),client.getLastName()));
     }
 
-    @Then("A Product is found with id {long}")
-    public void productWithIdSays(Long id){
+    @Then("A Product is found with id {long} in db")
+    public void productWithIdSaysDb(Long id){
         Product product=productService.getProductById(id);
         log.info(String.format("%s with price %.2f says hi!",product.getName(),product.getPrice()));
     }
 
-    @Then("A Product is found with name {string}")
-    public void productWithNameSays(String name){
+    @Then("A Product is found with name {string} in db")
+    public void productWithNameSaysDb(String name){
         Product product=productService.getProductByName(name);
         log.info(String.format("%s with price %.2f says hi!",product.getName(),product.getPrice()));
     }

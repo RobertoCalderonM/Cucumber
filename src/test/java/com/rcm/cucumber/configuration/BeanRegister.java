@@ -1,5 +1,6 @@
 package com.rcm.cucumber.configuration;
 
+import com.rcm.cucumber.configuration.properties.test.TestConfigurationProperties;
 import com.rcm.cucumber.utils.ExtendedFluentWait;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.SoftAssertions;
@@ -7,9 +8,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.time.Duration;
 
@@ -28,6 +31,11 @@ public class BeanRegister {
     }
 
     @Lazy @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Lazy @Bean
     public ExtendedFluentWait registerWait(@Autowired WebDriver driver){
         return (ExtendedFluentWait) new ExtendedFluentWait(driver)
                 .pollingEvery(Duration.ofSeconds(5))
@@ -37,7 +45,7 @@ public class BeanRegister {
     }
 
     @Lazy @Bean
-    private WebDriver registerBrowser() throws IOException {
+    private WebDriver registerWebBrowser() throws IOException {
         String machineProperty=testConfigurationProperties.getMachine();
         switch (machineProperty){
             case "local":

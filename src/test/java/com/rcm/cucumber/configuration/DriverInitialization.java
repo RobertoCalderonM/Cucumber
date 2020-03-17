@@ -1,5 +1,7 @@
 package com.rcm.cucumber.configuration;
 
+import com.rcm.cucumber.configuration.properties.saucelabs.SauceLabsCredentialsProperties;
+import com.rcm.cucumber.configuration.properties.test.TestConfigurationProperties;
 import com.rcm.cucumber.manager.TestDataManager;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +10,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import javax.annotation.PreDestroy;

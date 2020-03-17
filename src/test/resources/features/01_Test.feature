@@ -5,11 +5,12 @@ Feature: Test 01 Feature
     When User profile:
     | First Name | Bob          |
     | Last Name  | Sponge       |
-
-    Then A Client is found with id 1
-    Then A Client is found with id 2
-    Then A Product is found with id 1
-    Then A Product is found with name "Chocolate"
+    
+    Then A Client is found with id 1 in ClientsAPI
+    Then A Client is found with id 1 in db
+    Then A Client is found with id 2 in db
+    Then A Product is found with id 1 in db
+    Then A Product is found with name "Chocolate" in db
     When User navigates to "http://www.amazon.com"
     Then I say "Hi!" to Amazon!
     Then Browser is refreshed
