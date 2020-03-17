@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
@@ -40,7 +42,12 @@ public class AuthAPI {
         HttpEntity<MultiValueMap<String,String>> entity=new HttpEntity<>(bodyParamMap,headers);
 
         log.info("Requesting Token...");
-        return restTemplate.exchange("http://localhost:8080/oauth/token", HttpMethod.POST,entity,Auth.class)
-                .getBody();
+        try {
+            return restTemplate.exchange("http://localhost:8080/oauth/token", HttpMethod.POST, entity, Auth.class)
+                    .getBody();
+        }catch (RestClientException e){
+            log.error(e.getLocalizedMessage());
+            throw e;
+        }
     }
 }
