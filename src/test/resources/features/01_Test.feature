@@ -6,7 +6,7 @@ Feature: Test 01 Feature
     | First Name | Bob          |
     | Last Name  | Sponge       |
     
-    Then A Client is found with id 1 in ClientsAPI
+#    Then A Client is found with id 1 in ClientsAPI
     Then A Client is found with id 1 in db
     Then A Client is found with id 2 in db
     Then A Product is found with id 1 in db

@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix="test")
 public class TestConfigurationProperties {
-    private String environment;
     private String machine;
 
     @Autowired @Qualifier("testOS")

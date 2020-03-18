@@ -1,6 +1,6 @@
 package com.rcm.cucumber.database.configuration;
 
-import org.springframework.beans.factory.BeanCreationException;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 
 @Configuration @Lazy
-@PropertySource({"classpath:database.properties"})
+@PropertySource({"classpath:database.${spring.profiles.active}.properties"})
 @EnableJpaRepositories(
         basePackages = "com.rcm.cucumber.database.base.repositories",
         entityManagerFactoryRef = "baseEntityManager",

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 @Configuration
 @ConfigurationProperties(prefix="api.auth")
-@PropertySource("classpath:api.auth.properties")
+@PropertySource("classpath:api.auth.${spring.profiles.active}.properties")
 public class ApiAuthProperties {
     @Autowired @Qualifier("apiAdmin")
     private Admin admin;
