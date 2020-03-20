@@ -16,7 +16,7 @@ import static io.cucumber.junit.CucumberOptions.SnippetType.CAMELCASE;
         stepNotifications = true,
         strict = true,
         snippets = CAMELCASE,
-        tags = {"@tagTest1 or @tagTest2"},
+        tags = {"@tagTest1"},
         features= {"src/test/resources/features"},
         extraGlue={"com.rcm.cucumber.step_definitions"})
 public class TestRunner1 {

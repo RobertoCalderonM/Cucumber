@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Sleeper;
 import java.time.Clock;
+import java.util.List;
 
 @Slf4j
 public class ExtendedFluentWait extends FluentWait<WebDriver> {
@@ -28,9 +29,19 @@ public class ExtendedFluentWait extends FluentWait<WebDriver> {
         return this.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public List<WebElement> untilAllElementsToBeVisible(List<WebElement> elementsList){
+        log.info("Waiting elements to be visible... Size: "+elementsList.size());
+        return this.until(ExpectedConditions.visibilityOfAllElements(elementsList));
+    }
+
     public Boolean untilElementToNotBeVisible(WebElement element){
         log.info("Waiting element to not be visible: "+element);
         return this.until(ExpectedConditions.invisibilityOf(element));
+    }
+
+    public Boolean untilAllElementsNotToBeVisible(List<WebElement> elementsList){
+        log.info("Waiting elements to not be visible... Size: "+elementsList.size());
+        return this.until(ExpectedConditions.invisibilityOfAllElements(elementsList));
     }
 
     public Boolean untilTextIsPresentInElement(WebElement element,String text){

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 
 @Configuration @Lazy
-@PropertySource({"classpath:database.${spring.profiles.active}.properties"})
+@PropertySource({"classpath:databases/database.${spring.profiles.active}.properties"})
 @EnableJpaRepositories(
         basePackages = "com.rcm.cucumber.database.base.repositories",
         entityManagerFactoryRef = "baseEntityManager",
