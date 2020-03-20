@@ -3,6 +3,7 @@ package com.rcm.cucumber.step_definitions;
 import com.rcm.cucumber.page.webpages.AmazonPage;
 import com.rcm.cucumber.page.webpages.GooglePage;
 import com.rcm.cucumber.utils.ExtendedFluentWait;
+import com.rcm.cucumber.utils.JavaScriptExecutorMethods;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ public class BrowserSteps {
     public void sayToAmazon(String value){
         waiting.untilElementToBeVisible(amazon.getAmazonSearchBar());
         amazon.amazonSearchBarSendKeys(value);
+
     }
 
     @Then("Browser is refreshed")

@@ -4,6 +4,7 @@ import com.rcm.cucumber.configuration.properties.test.TestConfigurationPropertie
 import com.rcm.cucumber.utils.ExtendedFluentWait;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.SoftAssertions;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
@@ -44,7 +46,7 @@ public class BeanRegister {
                 .ignoring(NoSuchElementException.class);
     }
 
-    @Lazy @Bean
+    @Lazy @Bean @Primary
     private WebDriver registerWebBrowser() throws IOException {
         String machineProperty=testConfigurationProperties.getMachine();
         switch (machineProperty){
@@ -60,6 +62,11 @@ public class BeanRegister {
             default:
                 throw new IOException(String.format("Property: %s do not exists for test.machine",machineProperty));
         }
+    }
+
+    @Lazy @Bean("JavascriptExecutor")
+    public JavascriptExecutor registerJavaScriptExecutor(@Autowired WebDriver driver){
+        return (JavascriptExecutor) driver;
     }
 
 }
