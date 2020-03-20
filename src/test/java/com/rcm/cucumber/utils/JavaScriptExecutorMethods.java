@@ -3,7 +3,6 @@ package com.rcm.cucumber.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component @Slf4j
 public class JavaScriptExecutorMethods {
 
-    @Autowired
+    @Autowired @Lazy
     @Qualifier("JavascriptExecutor")
     JavascriptExecutor js;
 
